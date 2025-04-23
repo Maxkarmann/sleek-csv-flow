@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Upload } from 'lucide-react';
+import { Upload, CheckCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -55,7 +55,6 @@ export const FileUpload = () => {
     setUploading(true);
     setProgress(0);
 
-    // Simulate upload progress
     for (let i = 0; i <= 100; i += 10) {
       await new Promise(resolve => setTimeout(resolve, 200));
       setProgress(i);
@@ -72,13 +71,13 @@ export const FileUpload = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
+    <div className="max-w-2xl mx-auto">
       <div
-        className={`relative border-2 border-dashed rounded-xl p-8 transition-all duration-200 ease-in-out ${
+        className={`relative transition-all duration-300 ease-in-out ${
           isDragging
-            ? "border-indigo-400 bg-indigo-50"
-            : "border-gray-300 hover:border-indigo-300"
-        }`}
+            ? "border-2 border-dashed border-indigo-400 bg-indigo-50/50"
+            : "border-2 border-dashed border-gray-200 hover:border-indigo-300 hover:bg-gray-50/50"
+        } rounded-xl p-8`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
@@ -90,8 +89,10 @@ export const FileUpload = () => {
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         />
         <div className="text-center">
-          <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-          <h3 className="mb-2 text-lg font-medium text-gray-900">
+          <Upload className={`w-16 h-16 mx-auto mb-4 transition-colors duration-200 ${
+            isDragging ? 'text-indigo-500' : 'text-gray-400'
+          }`} />
+          <h3 className="mb-2 text-xl font-medium text-gray-900">
             {file ? file.name : "Drop your CSV file here"}
           </h3>
           <p className="text-gray-500 text-sm">
@@ -101,17 +102,21 @@ export const FileUpload = () => {
       </div>
 
       {file && !uploading && (
-        <div className="mt-4 flex justify-center">
-          <Button onClick={simulateUpload} className="bg-indigo-600 hover:bg-indigo-700">
+        <div className="mt-6 flex justify-center">
+          <Button 
+            onClick={simulateUpload}
+            className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-2 rounded-lg transition-all duration-200 transform hover:scale-105"
+          >
+            <CheckCircle className="mr-2 h-5 w-5" />
             Upload and Trigger Workflow
           </Button>
         </div>
       )}
 
       {uploading && (
-        <div className="mt-4">
+        <div className="mt-6 space-y-4">
           <Progress value={progress} className="h-2 bg-gray-100" />
-          <p className="text-sm text-center mt-2 text-gray-600">
+          <p className="text-sm text-center text-gray-600 animate-pulse">
             Uploading... {progress}%
           </p>
         </div>
