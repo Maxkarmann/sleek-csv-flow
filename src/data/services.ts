@@ -42,8 +42,8 @@ export const services: Service[] = [
   },
   {
     id: "fair-database",
-    name: "Fair Database",
-    description: "Ethical data storage and management solutions for your business.",
+    name: "Convention Database",
+    description: "Centralized data storage for industry conventions, including comprehensive Hannover Messe insights and documentation.",
     icon: Database
   },
   {
