@@ -10,7 +10,7 @@ export const Logo = () => {
         <Sparkles className="w-4 h-4 text-purple-500 absolute -top-1 -right-1 animate-pulse" />
       </div>
       <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-        UX Insight AI
+        Pat&Max's AI Hut
       </span>
     </Link>
   );
