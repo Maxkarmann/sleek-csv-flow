@@ -12,9 +12,20 @@ export interface UserServiceUsage {
 }
 
 // Mock data store - will be replaced with Supabase later
-const mockUsageStore: Record<string, UserServiceUsage> = {};
+let mockUsageStore: Record<string, UserServiceUsage> = {};
 
 export const trackServiceUsage = (email: string, serviceId: string, serviceName: string): void => {
+  // Try to load from localStorage first to ensure we have the latest data
+  const storedData = localStorage.getItem('serviceUsage');
+  if (storedData) {
+    try {
+      const parsed = JSON.parse(storedData);
+      mockUsageStore = parsed;
+    } catch (e) {
+      console.error("Error parsing stored service usage data", e);
+    }
+  }
+
   // Create user record if it doesn't exist
   if (!mockUsageStore[email]) {
     mockUsageStore[email] = {
@@ -46,8 +57,11 @@ export const getUserServiceUsage = (email: string): ServiceUsage[] => {
   // Try to load from localStorage first
   const storedData = localStorage.getItem('serviceUsage');
   if (storedData) {
-    const parsed = JSON.parse(storedData);
-    mockUsageStore = parsed;
+    try {
+      mockUsageStore = JSON.parse(storedData);
+    } catch (e) {
+      console.error("Error parsing stored service usage data", e);
+    }
   }
   
   return mockUsageStore[email]?.services || [];

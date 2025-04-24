@@ -2,7 +2,7 @@
 import { 
   FileText, 
   Search, 
-  Spider, 
+  Bot, 
   Pencil, 
   Database, 
   Mail 
@@ -32,7 +32,7 @@ export const services: Service[] = [
     id: "competitor-crawler",
     name: "Competitor Crawler",
     description: "Automated data extraction from competitor websites for comprehensive analysis.",
-    icon: Spider
+    icon: Bot
   },
   {
     id: "seo-writer",
